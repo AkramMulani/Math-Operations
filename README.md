@@ -11,12 +11,13 @@ This application is made for experimental purpose only. Math Operations applicat
 
 ## Installation
 
-- [Download Project](#download)
-- [Extract Files](#extract)
-- [Run Executable](#execute)
+- [Download Project](download)
+- [Extract Files]
+- [Run Executable]
 
 ## Usage
 
 It can perform all complex mathematical operations. You can also define your own custom operations by adding them.
 
+## Download
 
