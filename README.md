@@ -1,4 +1,4 @@
-# Math Operations
+# Math Operations v1.2.1
 
 ## Description
 
@@ -12,11 +12,13 @@ This application is made for experimental purpose only. Math Operations applicat
 ## Installation
 
 - [Download Project](#download)
-- [Extract Files](#extract)
-- [Run Executable](#execute)
+- [Extract Files]
+- [Run Executable]
 
 ## Usage
 
 It can perform all complex mathematical operations. You can also define your own custom operations by adding them.
 
+## Download
 
+[click here](https://github.com/AkramMulani/Math-Operations) for download.

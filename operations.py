@@ -25,6 +25,22 @@ class Operations:
                 f.write(operation)
                 # print(f'{name} operation is added.')
 
+    def removeOperation(self,index:int):
+        print(index)
+        names = list(self.__operations__.keys())
+        name = names[index]
+        try:
+            del self.__operations__[name]
+            with open('operations.txt','r') as file:
+                lines = file.readlines()
+            if 0<=index<len(lines):
+                del lines[index]
+                with open('operations.txt','w') as file:
+                    file.writelines(lines)
+            return 1
+        except:
+            return 0
+
     def getOperations(self) -> dict:
         return self.__operations__
 

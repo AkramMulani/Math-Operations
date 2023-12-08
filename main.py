@@ -40,8 +40,44 @@ def addOperation():
     dialog.setLayout(layout)
     dialog.exec_()
 
+def deleteOperation():
+    dialog = QDialog(frame)
+    label = QLabel('Select Operation to remove')
+    lst = QListWidget()
+    for name in operation.getOperations().keys():
+        lst.addItem(name)
+
+    remove_button = QPushButton('Remove')
+    cancel_button = QPushButton('Cancel')
+    def remove():
+        index = lst.currentRow()
+        result = operation.removeOperation(int(index))
+        if not result:
+            QMessageBox.warning(dialog,'Warning','Cant remove operation.')
+        else:
+            combo_box.removeItem(int(index))
+        dialog.accept()
+
+    def cancel():
+        dialog.reject()
+
+    remove_button.clicked.connect(remove)
+    cancel_button.clicked.connect(cancel)
+
+    layout = QVBoxLayout()
+    layout.addWidget(label)
+    layout.addWidget(lst)
+    layout.addWidget(remove_button)
+    layout.addWidget(cancel_button)
+
+    dialog.setLayout(layout)
+    dialog.exec_()
+
 def start():
     app = QApplication(sys.argv)
+
+    font_label = QFont('Arial',12)
+    font_button = QFont('Arial',15)
 
     global frame
     frame = QWidget()
@@ -49,13 +85,17 @@ def start():
     frame.setGeometry(100, 100, 1300, 800)
 
     # For adding new operations
-    add_operation_label = QLabel('Add New Operation')
-    add_operation_label.setFont(QFont('Arial', 12))
+    add_operation_label = QLabel('Add/Delete Operation')
+    add_operation_label.setFont(font_label)
     add_operation_label.setFixedWidth(300)
     add_operation_button = QPushButton('+')
     add_operation_button.setFixedSize(70,50)
-    add_operation_button.setFont(QFont('Arial',15))
+    add_operation_button.setFont(font_button)
     add_operation_button.clicked.connect(addOperation)
+    delete_operation_button = QPushButton('-')
+    delete_operation_button.setFixedSize(70,50)
+    delete_operation_button.setFont(font_button)
+    delete_operation_button.clicked.connect(deleteOperation)
 
     # selection list
     select_label = QLabel('Select Operation')
@@ -91,11 +131,15 @@ def start():
     result_edit = QLineEdit()
     result_edit.setFixedSize(200,50)
     result_edit.setValidator(QIntValidator())
-    result_edit.setFont(QFont('Arial',15))
+    result_edit.setFont(font_button)
 
     evaluate_button = QPushButton('Evaluate')
-    evaluate_button.setFont(QFont('Arial',12))
+    evaluate_button.setFont(font_label)
     evaluate_button.setFixedWidth(200)
+
+    clear_button = QPushButton('Clear')
+    clear_button.setFont(font_label)
+    clear_button.setFixedWidth(200)
     def evaluate():
         num1 = number1_edit.text()
         num2 = number2_edit.text()
@@ -108,7 +152,13 @@ def start():
         else:
             QMessageBox.warning(frame,'Warning','Please enter operands to perform operations')
 
+    def clear():
+        number1_edit.setText('')
+        number2_edit.setText('')
+        result_edit.setText('')
+
     evaluate_button.clicked.connect(evaluate)
+    clear_button.clicked.connect(clear)
 
     # Vertical layout
     vertical_layout = QVBoxLayout()
@@ -118,6 +168,7 @@ def start():
     add_operation_layout = QHBoxLayout()
     add_operation_layout.addWidget(add_operation_label)
     add_operation_layout.addWidget(add_operation_button)
+    add_operation_layout.addWidget(delete_operation_button)
     add_operation_layout.addWidget(select_label)
     add_operation_layout.addWidget(combo_box)
 
@@ -139,6 +190,7 @@ def start():
     # evaluation part
     evaluate_layout = QHBoxLayout()
     evaluate_layout.addWidget(evaluate_button)
+    evaluate_layout.addWidget(clear_button)
 
     vertical_layout.addLayout(add_operation_layout)
     vertical_layout.addLayout(number1_layout)

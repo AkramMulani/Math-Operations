@@ -10,7 +10,7 @@ if sys.platform == 'win32':
 
 setup(
     name="Math Operations",
-    version="1.2.0",
+    version="1.2.1",
     description="Simple Math Operations using Python QT Framework",
     executables=[Executable("main.py",base=base)],
     options={
