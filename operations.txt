@@ -1,4 +1,2 @@
 Addition:a+b,
 Subtraction:a-b,
-
-Greater And Equal:a>=b,

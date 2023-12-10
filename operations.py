@@ -1,36 +1,31 @@
 
 class Operations:
     def __init__(self):
-        self.__operations__ = dict()
+        self._operations_ = dict()
         with open('operations.txt','r') as f:
             operations = f.read()
             for operation in operations.split(','):
                 try:
                     name = operation.split(':')[0].strip()
                     define = operation.split(':')[1]
-                    # print(f'{name}\t{define}')
-                    self.__operations__[name] = define
+                    self._operations_[name] = define
                 except Exception as e:
-                    # print(e)
                     pass
 
     def addOperation(self,name: str, sample: str):
         try:
-            a = self.__operations__[name]
-            # print('This operation is already defined.')
+            a = self._operations_[name]
         except KeyError:
-            self.__operations__[name] = sample
+            self._operations_[name] = sample
             with open('operations.txt','a') as f:
                 operation = f'\n{name}:{sample},'
                 f.write(operation)
-                # print(f'{name} operation is added.')
 
     def removeOperation(self,index:int):
-        print(index)
-        names = list(self.__operations__.keys())
+        names = list(self._operations_.keys())
         name = names[index]
         try:
-            del self.__operations__[name]
+            del self._operations_[name]
             with open('operations.txt','r') as file:
                 lines = file.readlines()
             if 0<=index<len(lines):
@@ -42,10 +37,10 @@ class Operations:
             return 0
 
     def getOperations(self) -> dict:
-        return self.__operations__
+        return self._operations_
 
     def evaluate_expression(self,a:int,b:int,op:str) -> list:
-        expression = str(self.__operations__[op])
+        expression = str(self._operations_[op])
         expression.replace('a',str(a))
         expression.replace('b',str(b))
         try:

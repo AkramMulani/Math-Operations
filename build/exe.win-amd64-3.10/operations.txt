@@ -1,4 +1,7 @@
-Addition:a+b,
 Subtraction:a-b,
-
 Greater And Equal:a>=b,
+Multiply:a*b,
+Division:a/b,
+Power:a**b,
+Modulo:a%b,
+Floor Division:a//b,
