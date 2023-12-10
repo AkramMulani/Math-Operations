@@ -10,8 +10,10 @@ class CustomDialog(QDialog):
         self._OP_ = operation
         self._function_call = None
         if option == 1:
+            self.setGeometry(900,200,300,150)
             self.__function_call__ = self._add_operation_
         elif option == 2:
+            self.setGeometry(900, 200, 300, 250)
             self.__function_call__ = self._delete_operation_
 
     def _add_operation_(self):
