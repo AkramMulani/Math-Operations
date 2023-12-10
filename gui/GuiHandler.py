@@ -145,7 +145,17 @@ class GUIHandler(QWidget):
         self._DELETE_OPERATION_DIALOG_.exec_()
 
     def _on_evaluate_expression_click_(self):
-        pass
+        if self._NUMBER_1_LINE_EDIT_.text().strip()!='' and self._NUMBER_2_LINE_EDIT_.text().strip()!='':
+            result = self._OP_.evaluate_expression(
+                int(self._NUMBER_1_LINE_EDIT_.text()),int(self._NUMBER_2_LINE_EDIT_.text()),
+                self._SELECT_COMBO_BOX_.currentText()
+            )
+            if result[0]:
+                self._RESULT_LINE_EDIT_.setText(result[1])
+            else:
+                self._RESULT_LINE_EDIT_.setText(f'Math Error:{result[1]}')
 
     def _on_clear_input_click_(self):
-        pass
+        self._NUMBER_1_LINE_EDIT_.clear()
+        self._NUMBER_2_LINE_EDIT_.clear()
+        self._RESULT_LINE_EDIT_.clear()
