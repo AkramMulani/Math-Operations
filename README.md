@@ -1,4 +1,4 @@
-# Math Operations v1.2.1
+# Math Operations v1.2.4
 
 ## Description
 
@@ -8,6 +8,7 @@ This application is made for experimental purpose only. Math Operations applicat
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [Snapshots](#snapshots)
 
 ## Installation
 
@@ -22,3 +23,16 @@ It can perform all complex mathematical operations. You can also define your own
 ## Download
 
 [click here](https://github.com/AkramMulani/Math-Operations) for download.
+
+## Snapshots
+![Addition Operation](https://github.com/AkramMulani/Math-Operations/blob/main/assets/a1.png)
+*Showing Addition operation of two simple operands.
+
+![Quadratic Operation](https://github.com/AkramMulani/Math-Operations/blob/main/assets/a2.png)
+*Showing result of quadratic expression by the input values.
+
+![Adding New Operation](https://github.com/AkramMulani/Math-Operations/blob/main/assets/a3.png)
+*Adding New operation to application.
+
+![Deleting Operation](https://github.com/AkramMulani/Math-Operations/blob/main/assets/a4.png)
+*Shows, you can delete an existing operation if you don't want it.
