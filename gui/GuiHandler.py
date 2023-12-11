@@ -65,6 +65,7 @@ class GUIHandler(QWidget):
 
     def _initGui_(self):
         self.setWindowTitle('Math Operations')
+        self.setWindowIcon(self.ICON)
         self.setGeometry(100, 100, 1200, 800)
         self.setMinimumSize(1200, 800)
         self.setMaximumSize(1200, 800)

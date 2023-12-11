@@ -1,3 +1,2 @@
 Addition:a+b,
 Subtraction:a-b,
-Quadratic 3:a*a+b-c,

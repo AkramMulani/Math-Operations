@@ -9,5 +9,4 @@ from operations import Operations
 app = QApplication(sys.argv)
 operation = Operations()
 window = GUIHandler(operation)
-app.setWindowIcon(window.ICON)
 sys.exit(app.exec_())
