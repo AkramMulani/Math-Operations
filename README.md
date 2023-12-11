@@ -25,14 +25,14 @@ It can perform all complex mathematical operations. You can also define your own
 [click here](https://github.com/AkramMulani/Math-Operations) for download.
 
 ## Snapshots
-![Addition Operation](https://github.com/AkramMulani/Math-Operations/blob/main/assets/a1.png)
+![Addition Operation](https://drive.google.com/file/d/1Nl-Ta5AqVM52inbLF7-FJR03npwHlsYf/view?usp=sharing)
 *Showing Addition operation of two simple operands.
 
-![Quadratic Operation](https://github.com/AkramMulani/Math-Operations/blob/main/assets/a2.png)
+![Quadratic Operation](https://drive.google.com/file/d/1v9-6Ud2FkSFjGUHfFYeoeL_mOcvnP7du/view?usp=sharing)
 *Showing result of quadratic expression by the input values.
 
-![Adding New Operation](https://github.com/AkramMulani/Math-Operations/blob/main/assets/a3.png)
+![Adding New Operation](https://drive.google.com/file/d/19CNmsAz66nUf2ZTXZXkOPpt1R3Tepw3x/view?usp=sharing)
 *Adding New operation to application.
 
-![Deleting Operation](https://github.com/AkramMulani/Math-Operations/blob/main/assets/a4.png)
+![Deleting Operation](https://drive.google.com/file/d/1KZf2c5Ct9-ILxHNpFqvQiB6fM1kIoCYK/view?usp=sharing)
 *Shows, you can delete an existing operation if you don't want it.
