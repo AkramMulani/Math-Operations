@@ -34,6 +34,7 @@ class CustomDialog(QDialog):
                 """)
 
     def _add_operation_(self):
+        self.setWindowTitle('Add Operation')
         name = QLabel('Name:')
         name_text = QLineEdit()
         define = QLabel('Define:')
@@ -101,6 +102,7 @@ class CustomDialog(QDialog):
         self.setLayout(box_layout)
 
     def _delete_operation_(self):
+        self.setWindowTitle('Delete Operation')
         label = QLabel('Select Operation to delete')
         o_list = QListWidget()
         for op in self._OP_.getOperations().keys():
