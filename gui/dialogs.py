@@ -15,6 +15,37 @@ class CustomDialog(QDialog):
         elif option == 2:
             self.setGeometry(900, 200, 300, 250)
             self.__function_call__ = self._delete_operation_
+        self.setStyleSheet("""
+                    QDialog {
+                        background-color: #f0f0f0;
+                        border: 1px solid #aaa;
+                        border-radius: 5px;
+                    }
+                    QLabel {
+                        font-size: 14px;
+                        color: #333;
+                    }
+                    QLineEdit, QListWidget {
+                        padding: 8px;
+                        border-radius: 5px;
+                        border: 1px solid #ccc;
+                        background-color: #fff;
+                    }
+                    QPushButton {
+                        background-color: #4CAF50;
+                        color: white;
+                        border: none;
+                        border-radius: 5px;
+                        padding: 8px 16px;
+                        font-size: 14px;
+                        margin-top: 8px;
+                        margin-right: 8px;
+                        cursor: pointer;
+                    }
+                    QPushButton:hover {
+                        background-color: #45a049;
+                    }
+                """)
 
     def _add_operation_(self):
         name = QLabel('Name:')
@@ -62,6 +93,7 @@ class CustomDialog(QDialog):
             if not i:
                 QMessageBox.warning(self,'Warning','Something went wrong!')
             else:
+                o_list.takeItem(index)
                 self.accept()
 
         def cancel():

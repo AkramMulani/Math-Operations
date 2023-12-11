@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5.QtWidgets import QWidget,QPushButton,QLabel,QLineEdit,QComboBox,QFormLayout,QHBoxLayout
+from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QLineEdit, QComboBox, QFormLayout, QHBoxLayout, QVBoxLayout
 
 from PyQt5.QtGui import QFont,QIcon,QIntValidator,QDoubleValidator
 
@@ -61,14 +61,57 @@ class GUIHandler(QWidget):
         self._FORM_LAYOUT_ = QFormLayout()
         self._BOX_LAYOUT_HORIZONTAL_ = QHBoxLayout()
         self._BOX_LAYOUT_HORIZONTAL_1_ = QHBoxLayout()
+        self._BOX_LAYOUT_VERTICAL = QVBoxLayout()
 
         self._initGui_()
+
     def _initGui_(self):
         self.setWindowTitle('Math Operations')
         self.setGeometry(100, 100, 1200, 800)
         self.setMinimumSize(1200, 800)
+        self.setMaximumSize(1200, 800)
+        self.setStyleSheet("""
+                    QWidget {
+                        background-color: #f0f0f0;
+                    }
+                    QPushButton {
+                        background-color: #4CAF50;
+                        border: none;
+                        color: white;
+                        padding: 10px 24px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin: 4px 2px;
+                        transition-duration: 0.4s;
+                        cursor: pointer;
+                        border-radius: 8px;
+                    }
+                    QPushButton:hover {
+                        background-color: #45a049;
+                    }
+                    QLabel {
+                        font-size: 16px;
+                        color: #333;
+                    }
+                    QLineEdit {
+                        padding: 8px;
+                        border-radius: 5px;
+                        border: 1px solid #ccc;
+                        background-color: #fff;
+                    }
+                    QComboBox {
+                        padding: 8px;
+                        border-radius: 5px;
+                        border: 1px solid #ccc;
+                        background-color: #fff;
+                        selection-background-color: #f0f0f0;
+                    }
+                """)
         self._setLabels_()
         self._add_components_()
+        # self._setStyles_()
         self.show()
 
     def _add_components_(self):
@@ -136,13 +179,60 @@ class GUIHandler(QWidget):
         self._NUMBER_1_LINE_EDIT_.setValidator(self._INT_VALIDATOR_)
         self._NUMBER_2_LINE_EDIT_.setValidator(self._INT_VALIDATOR_)
 
+    def _setStyles_(self):
+        # Set styles for buttons
+        self._ADD_OPERATION_BUTTON_.setStyleSheet(
+            "background-color: #4CAF50; color: white; border-radius: 8px; padding: 10px 24px; font-size: 20px;QPushButton:hover {background-color:#01FA01;}"
+        )
+        self._DELETE_OPERATION_BUTTON_.setStyleSheet(
+            "background-color: #f44336; color: white; border-radius: 8px; padding: 10px 24px; font-size: 20px;QPushButton:hover {background-color:#ff0101;"
+        )
+        self._EVALUATE_EXPRESSION_BUTTON_.setStyleSheet(
+            "background-color: #008CBA; color: white; border-radius: 8px; padding: 8px 16px; font-size: 16px;QPushButton:hover {background-color:#0101F0;"
+        )
+        self._CLEAR_INPUT_BUTTON_.setStyleSheet(
+            "background-color: #555555; color: white; border-radius: 8px; padding: 8px 16px; font-size: 16px;QPushButton:hover {background-color:#100110;"
+        )
+
+        # Set styles for labels
+        self._ADD_DELETE_OPERATION_LABEL_.setStyleSheet("font-size: 20px; color: #333;")
+        self._SELECT_OPERATION_LABEL_.setStyleSheet("font-size: 16px; color: #333;")
+        self._NUMBER_1_LABEL_.setStyleSheet("font-size: 16px; color: #333;")
+        self._NUMBER_2_LABEL_.setStyleSheet("font-size: 16px; color: #333;")
+        self._RESULT_LABEL_.setStyleSheet("font-size: 16px; color: #333;")
+
+        # Set styles for line edits
+        self._NUMBER_1_LINE_EDIT_.setStyleSheet(
+            "padding: 8px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff;"
+        )
+        self._NUMBER_2_LINE_EDIT_.setStyleSheet(
+            "padding: 8px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff;"
+        )
+        self._RESULT_LINE_EDIT_.setStyleSheet(
+            "padding: 8px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff;"
+        )
+
+        # Set styles for combo box
+        self._SELECT_COMBO_BOX_.setStyleSheet(
+            "padding: 8px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff;"
+        )
+
+    def _update_combo_box_(self):
+        # clear combo box
+        self._SELECT_COMBO_BOX_.clear()
+        # adding dictionary to box:
+        for name in self._OP_.getOperations().keys():
+            self._SELECT_COMBO_BOX_.addItem(name)
+
     def _on_add_operation_click_(self):
         self._ADD_OPERATION_DIALOG_.__function_call__()
         self._ADD_OPERATION_DIALOG_.exec_()
+        self._update_combo_box_()
 
     def _on_delete_operation_click_(self):
         self._DELETE_OPERATION_DIALOG_.__function_call__()
         self._DELETE_OPERATION_DIALOG_.exec_()
+        self._update_combo_box_()
 
     def _on_evaluate_expression_click_(self):
         if self._NUMBER_1_LINE_EDIT_.text().strip()!='' and self._NUMBER_2_LINE_EDIT_.text().strip()!='':
