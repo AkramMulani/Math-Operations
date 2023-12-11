@@ -31,20 +31,6 @@ class CustomDialog(QDialog):
                         border: 1px solid #ccc;
                         background-color: #fff;
                     }
-                    QPushButton {
-                        background-color: #4CAF50;
-                        color: white;
-                        border: none;
-                        border-radius: 5px;
-                        padding: 8px 16px;
-                        font-size: 14px;
-                        margin-top: 8px;
-                        margin-right: 8px;
-                        cursor: pointer;
-                    }
-                    QPushButton:hover {
-                        background-color: #45a049;
-                    }
                 """)
 
     def _add_operation_(self):
@@ -71,6 +57,38 @@ class CustomDialog(QDialog):
         cancel_btn = QPushButton('Cancel')
         submit_btn.clicked.connect(submit)
         cancel_btn.clicked.connect(cancel)
+        submit_btn.setStyleSheet("""
+            QPushButton {
+                        background-color: #4CAF50;
+                        color: white;
+                        border: none;
+                        border-radius: 5px;
+                        padding: 8px 16px;
+                        font-size: 14px;
+                        margin-top: 8px;
+                        margin-right: 8px;
+                        cursor: pointer;
+                    }
+                    QPushButton:hover {
+                        background-color: rgb(88, 145, 73);
+                    }
+        """)
+        cancel_btn.setStyleSheet("""
+                    QPushButton {
+                                background-color: rgb(77, 126, 126);
+                                color: white;
+                                border: none;
+                                border-radius: 5px;
+                                padding: 8px 16px;
+                                font-size: 14px;
+                                margin-top: 8px;
+                                margin-right: 8px;
+                                cursor: pointer;
+                            }
+                            QPushButton:hover {
+                                background-color: rgb(87, 174, 174);
+                            }
+                """)
 
         box_layout_h = QHBoxLayout()
         box_layout_h.addWidget(submit_btn)
@@ -101,9 +119,40 @@ class CustomDialog(QDialog):
 
         submit_btn = QPushButton('Submit')
         cancel_btn = QPushButton('Cancel')
-
         submit_btn.clicked.connect(submit)
         cancel_btn.clicked.connect(cancel)
+        submit_btn.setStyleSheet("""
+                    QPushButton {
+                                background-color: #4CAF50;
+                                color: white;
+                                border: none;
+                                border-radius: 5px;
+                                padding: 8px 16px;
+                                font-size: 14px;
+                                margin-top: 8px;
+                                margin-right: 8px;
+                                cursor: pointer;
+                            }
+                            QPushButton:hover {
+                                background-color: rgb(88, 145, 73);
+                            }
+                """)
+        cancel_btn.setStyleSheet("""
+                            QPushButton {
+                                        background-color: rgb(77, 126, 126);
+                                        color: white;
+                                        border: none;
+                                        border-radius: 5px;
+                                        padding: 8px 16px;
+                                        font-size: 14px;
+                                        margin-top: 8px;
+                                        margin-right: 8px;
+                                        cursor: pointer;
+                                    }
+                                    QPushButton:hover {
+                                        background-color: rgb(87, 174, 174);
+                                    }
+                        """)
 
         h_layout = QHBoxLayout()
         h_layout.addWidget(submit_btn)

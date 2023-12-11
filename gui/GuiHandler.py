@@ -1,6 +1,7 @@
 import sys
 
-from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QLineEdit, QComboBox, QFormLayout, QHBoxLayout, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QLineEdit, QComboBox, QFormLayout, QHBoxLayout, QVBoxLayout, \
+    QMessageBox
 
 from PyQt5.QtGui import QFont,QIcon,QIntValidator,QDoubleValidator
 
@@ -35,8 +36,7 @@ class GUIHandler(QWidget):
         self._ADD_DELETE_OPERATION_LABEL_ = QLabel('Add/Delete Operation')
         self._SELECT_OPERATION_LABEL_ = QLabel('Select Operation')
         self._FILL_OPERANDS_VALUE_LABEL_ = QLabel('Fill All Operands Value')
-        self._NUMBER_1_LABEL_ = QLabel('Number 1')
-        self._NUMBER_2_LABEL_ = QLabel('Number 2')
+        self._LITERALS_LABELS_ = list()
         self._RESULT_LABEL_ = QLabel('Result')
 
         # buttons used in application
@@ -46,8 +46,7 @@ class GUIHandler(QWidget):
         self._CLEAR_INPUT_BUTTON_ = QPushButton('Clear')
 
         # One line text editor used in application
-        self._NUMBER_1_LINE_EDIT_ = QLineEdit()
-        self._NUMBER_2_LINE_EDIT_ = QLineEdit()
+        self._LINE_EDITS_ = list()
         self._RESULT_LINE_EDIT_ = QLineEdit()
 
         # combo box for selecting operation
@@ -74,25 +73,8 @@ class GUIHandler(QWidget):
                     QWidget {
                         background-color: #f0f0f0;
                     }
-                    QPushButton {
-                        background-color: #4CAF50;
-                        border: none;
-                        color: white;
-                        padding: 10px 24px;
-                        text-align: center;
-                        text-decoration: none;
-                        display: inline-block;
-                        font-size: 16px;
-                        margin: 4px 2px;
-                        transition-duration: 0.4s;
-                        cursor: pointer;
-                        border-radius: 8px;
-                    }
-                    QPushButton:hover {
-                        background-color: #45a049;
-                    }
                     QLabel {
-                        font-size: 16px;
+                        font-size: 20px;
                         color: #333;
                     }
                     QLineEdit {
@@ -100,18 +82,12 @@ class GUIHandler(QWidget):
                         border-radius: 5px;
                         border: 1px solid #ccc;
                         background-color: #fff;
-                    }
-                    QComboBox {
-                        padding: 8px;
-                        border-radius: 5px;
-                        border: 1px solid #ccc;
-                        background-color: #fff;
-                        selection-background-color: #f0f0f0;
+                        font-size: 18px;
                     }
                 """)
-        self._setLabels_()
+        self._create_literal_inputs_()
         self._add_components_()
-        # self._setStyles_()
+        self._setStyles_()
         self.show()
 
     def _add_components_(self):
@@ -119,41 +95,27 @@ class GUIHandler(QWidget):
         self._BOX_LAYOUT_HORIZONTAL_.addWidget(self._DELETE_OPERATION_BUTTON_)
         self._FORM_LAYOUT_.addRow(self._ADD_DELETE_OPERATION_LABEL_, self._BOX_LAYOUT_HORIZONTAL_)
         self._FORM_LAYOUT_.addRow(self._SELECT_OPERATION_LABEL_, self._SELECT_COMBO_BOX_)
-        self._FORM_LAYOUT_.addRow(self._NUMBER_1_LABEL_, self._NUMBER_1_LINE_EDIT_)
-        self._FORM_LAYOUT_.addRow(self._NUMBER_2_LABEL_, self._NUMBER_2_LINE_EDIT_)
         self._FORM_LAYOUT_.addRow(self._RESULT_LABEL_, self._RESULT_LINE_EDIT_)
         self._BOX_LAYOUT_HORIZONTAL_1_.addWidget(self._EVALUATE_EXPRESSION_BUTTON_)
         self._BOX_LAYOUT_HORIZONTAL_1_.addWidget(self._CLEAR_INPUT_BUTTON_)
         self._FORM_LAYOUT_.addRow(self._BOX_LAYOUT_HORIZONTAL_1_)
         self.setLayout(self._FORM_LAYOUT_)
-
-    def _setLabels_(self):
-        self._ADD_DELETE_OPERATION_LABEL_.setFont(self._MONOSPACE_12_FONT_)
-        self._SELECT_OPERATION_LABEL_.setFont(self._ARIAL_12_FONT_)
-        self._NUMBER_1_LABEL_.setFont(self._ARIAL_12_FONT_)
-        self._NUMBER_2_LABEL_.setFont(self._ARIAL_12_FONT_)
-        self._RESULT_LABEL_.setFont(self._ARIAL_12_FONT_)
         self._setButtons_()
 
     def _setButtons_(self):
-        self._ADD_OPERATION_BUTTON_.setFont(self._ARIAL_15_FONT_)
-        self._DELETE_OPERATION_BUTTON_.setFont(self._ARIAL_15_FONT_)
-        self._EVALUATE_EXPRESSION_BUTTON_.setFont(self._ARIAL_12_FONT_)
-        self._CLEAR_INPUT_BUTTON_.setFont(self._ARIAL_12_FONT_)
         self._ADD_OPERATION_BUTTON_.setFixedWidth(100)
         self._DELETE_OPERATION_BUTTON_.setFixedWidth(100)
         self._EVALUATE_EXPRESSION_BUTTON_.setFixedWidth(230)
         self._CLEAR_INPUT_BUTTON_.setFixedWidth(250)
+        self._ADD_OPERATION_BUTTON_.setCursor(self._BUTTON_CURSOR_)
+        self._DELETE_OPERATION_BUTTON_.setCursor(self._BUTTON_CURSOR_)
+        self._EVALUATE_EXPRESSION_BUTTON_.setCursor(self._BUTTON_CURSOR_)
+        self._CLEAR_INPUT_BUTTON_.setCursor(self._BUTTON_CURSOR_)
 
         self._ADD_OPERATION_BUTTON_.clicked.connect(self._on_add_operation_click_)
         self._DELETE_OPERATION_BUTTON_.clicked.connect(self._on_delete_operation_click_)
         self._EVALUATE_EXPRESSION_BUTTON_.clicked.connect(self._on_evaluate_expression_click_)
         self._CLEAR_INPUT_BUTTON_.clicked.connect(self._on_clear_input_click_)
-
-        self._ADD_OPERATION_BUTTON_.setCursor(self._BUTTON_CURSOR_)
-        self._DELETE_OPERATION_BUTTON_.setCursor(self._BUTTON_CURSOR_)
-        self._EVALUATE_EXPRESSION_BUTTON_.setCursor(self._BUTTON_CURSOR_)
-        self._CLEAR_INPUT_BUTTON_.setCursor(self._BUTTON_CURSOR_)
 
         self._ADD_OPERATION_BUTTON_.setToolTip('Add your custom operations')
         self._DELETE_OPERATION_BUTTON_.setToolTip('Delete operation from list')
@@ -162,67 +124,149 @@ class GUIHandler(QWidget):
         self._setComboBox_()
 
     def _setComboBox_(self):
-        self._SELECT_COMBO_BOX_.setFont(self._ARIAL_12_FONT_)
         self._SELECT_COMBO_BOX_.setFixedWidth(500)
         self._SELECT_COMBO_BOX_.setCursor(self._BUTTON_CURSOR_)
-        for op in self._OP_.getOperations().keys():
+        self._SELECT_COMBO_BOX_.currentIndexChanged.connect(self._create_literal_inputs_)
+        self._SELECT_COMBO_BOX_.setStyleSheet("""
+            QComboBox {
+                        padding: 8px;
+                        border-radius: 5px;
+                        border: 1px solid #ccc;
+                        background-color: #fff;
+                        selection-background-color: #f0f0f0;
+                        font-size: 20px;
+                    }
+        """)
+        for op,ex in self._OP_.getOperations().items():
             self._SELECT_COMBO_BOX_.addItem(op)
+        self._set_combo_box_tooltips_()
         self._setLineEdit_()
 
     def _setLineEdit_(self):
-        self._NUMBER_1_LINE_EDIT_.setFont(self._ARIAL_12_FONT_)
-        self._NUMBER_2_LINE_EDIT_.setFont(self._ARIAL_12_FONT_)
-        self._RESULT_LINE_EDIT_.setFont(self._ARIAL_12_FONT_)
-        self._NUMBER_1_LINE_EDIT_.setFixedWidth(500)
-        self._NUMBER_2_LINE_EDIT_.setFixedWidth(500)
         self._RESULT_LINE_EDIT_.setFixedWidth(500)
-        self._NUMBER_1_LINE_EDIT_.setValidator(self._INT_VALIDATOR_)
-        self._NUMBER_2_LINE_EDIT_.setValidator(self._INT_VALIDATOR_)
+
+    def _create_literal_inputs_(self):
+        self._RESULT_LINE_EDIT_.clear()
+        selected_operation = self._SELECT_COMBO_BOX_.currentText()
+        operation_dict = self._OP_.getOperations()
+        row_to_insert = 2  # Change this to the row index where you want to insert the literals
+
+        if selected_operation in operation_dict:
+            operation_expression = operation_dict[selected_operation]
+            literals = [char for char in operation_expression if char.isalpha()]
+
+            self._clear_literal_inputs_()  # Clear previous inputs
+
+            # layout = QVBoxLayout()
+            for i, literal in enumerate(literals):
+                label = QLabel(f'Number {i + 1}:')
+                line_edit = QLineEdit()
+                line_edit.setValidator(self._INT_VALIDATOR_)
+                line_edit.setFixedWidth(500)
+                label.setStyleSheet("""
+                    QLabel {
+                        font-size: 20px;
+                        color: #333;
+                    }
+                """)
+                line_edit.setStyleSheet("""
+                    QLineEdit {
+                        padding: 8px;
+                        border-radius: 5px;
+                        border: 1px solid #ccc;
+                        background-color: #fff;
+                        font-size: 18px;
+                    }
+                """)
+                self._LITERALS_LABELS_.append(label)
+                self._LINE_EDITS_.append(line_edit)
+                # layout.addWidget(label)
+                # layout.addWidget(line_edit)
+                self._FORM_LAYOUT_.insertRow(row_to_insert, label, line_edit)
+                row_to_insert+=1
+
+    def _clear_literal_inputs_(self):
+        for label in self._LITERALS_LABELS_:
+            label.setParent(None)
+            label.deleteLater()
+        for line_edit in self._LINE_EDITS_:
+            line_edit.setParent(None)
+            line_edit.deleteLater()
+
+        self._LITERALS_LABELS_.clear()
+        self._LINE_EDITS_.clear()
 
     def _setStyles_(self):
         # Set styles for buttons
-        self._ADD_OPERATION_BUTTON_.setStyleSheet(
-            "background-color: #4CAF50; color: white; border-radius: 8px; padding: 10px 24px; font-size: 20px;QPushButton:hover {background-color:#01FA01;}"
-        )
-        self._DELETE_OPERATION_BUTTON_.setStyleSheet(
-            "background-color: #f44336; color: white; border-radius: 8px; padding: 10px 24px; font-size: 20px;QPushButton:hover {background-color:#ff0101;"
-        )
-        self._EVALUATE_EXPRESSION_BUTTON_.setStyleSheet(
-            "background-color: #008CBA; color: white; border-radius: 8px; padding: 8px 16px; font-size: 16px;QPushButton:hover {background-color:#0101F0;"
-        )
-        self._CLEAR_INPUT_BUTTON_.setStyleSheet(
-            "background-color: #555555; color: white; border-radius: 8px; padding: 8px 16px; font-size: 16px;QPushButton:hover {background-color:#100110;"
-        )
-
-        # Set styles for labels
-        self._ADD_DELETE_OPERATION_LABEL_.setStyleSheet("font-size: 20px; color: #333;")
-        self._SELECT_OPERATION_LABEL_.setStyleSheet("font-size: 16px; color: #333;")
-        self._NUMBER_1_LABEL_.setStyleSheet("font-size: 16px; color: #333;")
-        self._NUMBER_2_LABEL_.setStyleSheet("font-size: 16px; color: #333;")
-        self._RESULT_LABEL_.setStyleSheet("font-size: 16px; color: #333;")
-
-        # Set styles for line edits
-        self._NUMBER_1_LINE_EDIT_.setStyleSheet(
-            "padding: 8px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff;"
-        )
-        self._NUMBER_2_LINE_EDIT_.setStyleSheet(
-            "padding: 8px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff;"
-        )
-        self._RESULT_LINE_EDIT_.setStyleSheet(
-            "padding: 8px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff;"
-        )
-
-        # Set styles for combo box
-        self._SELECT_COMBO_BOX_.setStyleSheet(
-            "padding: 8px; border-radius: 5px; border: 1px solid #ccc; background-color: #fff;"
-        )
+        self._ADD_OPERATION_BUTTON_.setStyleSheet("""
+            QPushButton {
+                background-color: rgb(61, 207, 112);
+                color: white; 
+                border-radius: 8px;
+                padding: 8px 16px;
+                font-size: 20px;
+                cursor: pointer;
+            }
+            QPushButton:hover {
+                background-color: rgb(34, 158, 77);
+            }
+        """)
+        self._DELETE_OPERATION_BUTTON_.setStyleSheet("""
+            QPushButton {
+                background-color: rgb(212, 43, 43);
+                color: white; 
+                border-radius: 8px;
+                padding: 8px 16px;
+                font-size: 20px;
+                cursor: pointer;
+            }
+            QPushButton:hover {
+                background-color: rgb(180, 21, 21);
+            }
+        """)
+        self._EVALUATE_EXPRESSION_BUTTON_.setStyleSheet("""
+            QPushButton {
+                background-color: rgb(72, 145, 209);
+                color: white; 
+                border-radius: 8px;
+                padding: 8px 16px;
+                font-size: 20px;
+                cursor: pointer;
+            }
+            QPushButton:hover {
+                background-color: rgb(25, 135, 150);
+            }
+        """)
+        self._CLEAR_INPUT_BUTTON_.setStyleSheet("""
+            QPushButton {
+                background-color: rgb(89, 94, 95);
+                color: white; 
+                border-radius: 8px;
+                padding: 8px 16px;
+                font-size: 20px;
+                cursor: pointer;
+            }
+            QPushButton:hover {
+                background-color: rgb(65, 68, 68);
+            }
+        """)
 
     def _update_combo_box_(self):
         # clear combo box
         self._SELECT_COMBO_BOX_.clear()
         # adding dictionary to box:
-        for name in self._OP_.getOperations().keys():
+        for name,exp in self._OP_.getOperations().items():
             self._SELECT_COMBO_BOX_.addItem(name)
+
+    def _set_combo_box_tooltips_(self):
+        operation_dict = self._OP_.getOperations()
+
+        for i in range(self._SELECT_COMBO_BOX_.count()):
+            combo_box_item_text = self._SELECT_COMBO_BOX_.itemText(i)
+            if combo_box_item_text in operation_dict:
+                expression = operation_dict[combo_box_item_text]
+                tooltip_text = f"Expression: {expression}"
+                self._SELECT_COMBO_BOX_.setItemData(i, tooltip_text, Qt.ToolTipRole)
 
     def _on_add_operation_click_(self):
         self._ADD_OPERATION_DIALOG_.__function_call__()
@@ -235,17 +279,31 @@ class GUIHandler(QWidget):
         self._update_combo_box_()
 
     def _on_evaluate_expression_click_(self):
-        if self._NUMBER_1_LINE_EDIT_.text().strip()!='' and self._NUMBER_2_LINE_EDIT_.text().strip()!='':
-            result = self._OP_.evaluate_expression(
-                int(self._NUMBER_1_LINE_EDIT_.text()),int(self._NUMBER_2_LINE_EDIT_.text()),
-                self._SELECT_COMBO_BOX_.currentText()
-            )
-            if result[0]:
+        selected_operation = self._SELECT_COMBO_BOX_.currentText()
+        operation_dict = self._OP_.getOperations()
+
+        if selected_operation in operation_dict:
+            expression = operation_dict[selected_operation]
+            literals_in_expression = [literal for literal in expression if literal.isalpha()]
+            # Example: if the expression is 'a + b - c * d', literals_in_expression will be ['a', 'b', 'c', 'd']
+
+            # Example user input values for the literals
+            # Replace these with actual user input or computations to gather user input
+            literal_values = [int(line_text.text()) for line_text in self._LINE_EDITS_]  # Values for ['a', 'b', 'c', 'd']
+
+            kwargs = {literal: val for literal, val in zip(literals_in_expression, literal_values)}
+
+            result = self._OP_.evaluate_expression(selected_operation, **kwargs)
+
+            if result[0] == 1:
+                # Handle successful result
                 self._RESULT_LINE_EDIT_.setText(result[1])
+                # print(f"Result: {result[1]}")
             else:
-                self._RESULT_LINE_EDIT_.setText(f'Math Error:{result[1]}')
+                # Handle error
+                self._RESULT_LINE_EDIT_.setText(f'Error:{result[1]}')
+                # print(f"Error: {result[1]}")
 
     def _on_clear_input_click_(self):
-        self._NUMBER_1_LINE_EDIT_.clear()
-        self._NUMBER_2_LINE_EDIT_.clear()
+        self._clear_literal_inputs_()
         self._RESULT_LINE_EDIT_.clear()
