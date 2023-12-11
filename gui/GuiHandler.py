@@ -295,10 +295,15 @@ class GUIHandler(QWidget):
                     literals_in_expression.append(char)
             # print(literals_in_expression)
 
-            literal_values = [int(line_text.text()) for line_text in self._LINE_EDITS_]
+            literal_values = [line_text.text() for line_text in self._LINE_EDITS_]
             # print(literal_values)
 
-            kwargs = {literal: val for literal, val in zip(literals_in_expression, literal_values)}
+            for val in literal_values:
+                if val.strip()=='':
+                    QMessageBox.warning(self,'Warning','Please fill the all literal values!')
+                    return
+
+            kwargs = {literal: int(val) for literal, val in zip(literals_in_expression, literal_values)}
 
             result = self._OP_.evaluate_expression(selected_operation, **kwargs)
 

@@ -1,3 +1,5 @@
 Addition:a+b,
 Subtraction:a-b,
-Quadratic 4:a*b*c*d,
+Greater And Equal:a>=b,
+Power:a**b,
+Multiplication:a*b,
