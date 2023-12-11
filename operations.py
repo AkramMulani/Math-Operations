@@ -56,7 +56,7 @@ class Operations:
 
         try:
             result = eval(expression)
-            if result:
+            if result is not None:
                 return [1, str(result)]
         except Exception as e:
             return [0, str(e)]

@@ -1,3 +1,4 @@
+import sys
 
 from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QLineEdit, QComboBox, QFormLayout, QHBoxLayout, QVBoxLayout, \
     QMessageBox
@@ -34,7 +35,7 @@ class GUIHandler(QWidget):
         # labels used in application
         self._ADD_DELETE_OPERATION_LABEL_ = QLabel('Add/Delete Operation')
         self._SELECT_OPERATION_LABEL_ = QLabel('Select Operation')
-        self._SELECTED_EXPRESSION_LABEL_ = QLabel()
+        self._FILL_OPERANDS_VALUE_LABEL_ = QLabel('Fill All Operands Value')
         self._LITERALS_LABELS_ = list()
         self._RESULT_LABEL_ = QLabel('Result')
 
@@ -94,7 +95,6 @@ class GUIHandler(QWidget):
         self._BOX_LAYOUT_HORIZONTAL_.addWidget(self._DELETE_OPERATION_BUTTON_)
         self._FORM_LAYOUT_.addRow(self._ADD_DELETE_OPERATION_LABEL_, self._BOX_LAYOUT_HORIZONTAL_)
         self._FORM_LAYOUT_.addRow(self._SELECT_OPERATION_LABEL_, self._SELECT_COMBO_BOX_)
-        self._FORM_LAYOUT_.addRow(self._SELECTED_EXPRESSION_LABEL_)
         self._FORM_LAYOUT_.addRow(self._RESULT_LABEL_, self._RESULT_LINE_EDIT_)
         self._BOX_LAYOUT_HORIZONTAL_1_.addWidget(self._EVALUATE_EXPRESSION_BUTTON_)
         self._BOX_LAYOUT_HORIZONTAL_1_.addWidget(self._CLEAR_INPUT_BUTTON_)
@@ -149,20 +149,15 @@ class GUIHandler(QWidget):
         self._RESULT_LINE_EDIT_.clear()
         selected_operation = self._SELECT_COMBO_BOX_.currentText()
         operation_dict = self._OP_.getOperations()
-        row_to_insert = 3 # inserting row in form
+        row_to_insert = 2  # Change this to the row index where you want to insert the literals
 
         if selected_operation in operation_dict:
             operation_expression = operation_dict[selected_operation]
-            self._SELECTED_EXPRESSION_LABEL_.setText(f'Expression: {operation_expression}')
-            literals = []
-
-            # Extract literals while preserving their order
-            for char in operation_expression:
-                if char.isalpha() and char not in literals:
-                    literals.append(char)
+            literals = [char for char in operation_expression if char.isalpha()]
 
             self._clear_literal_inputs_()  # Clear previous inputs
 
+            # layout = QVBoxLayout()
             for i, literal in enumerate(literals):
                 label = QLabel(f'Number {i + 1}:')
                 line_edit = QLineEdit()
@@ -185,6 +180,8 @@ class GUIHandler(QWidget):
                 """)
                 self._LITERALS_LABELS_.append(label)
                 self._LINE_EDITS_.append(line_edit)
+                # layout.addWidget(label)
+                # layout.addWidget(line_edit)
                 self._FORM_LAYOUT_.insertRow(row_to_insert, label, line_edit)
                 row_to_insert+=1
 
@@ -287,16 +284,12 @@ class GUIHandler(QWidget):
 
         if selected_operation in operation_dict:
             expression = operation_dict[selected_operation]
-            literals_in_expression = []
+            literals_in_expression = [literal for literal in expression if literal.isalpha()]
+            # Example: if the expression is 'a + b - c * d', literals_in_expression will be ['a', 'b', 'c', 'd']
 
-            # Extract literals
-            for char in expression:
-                if char.isalpha() and char not in literals_in_expression:
-                    literals_in_expression.append(char)
-            # print(literals_in_expression)
-
-            literal_values = [int(line_text.text()) for line_text in self._LINE_EDITS_]
-            # print(literal_values)
+            # Example user input values for the literals
+            # Replace these with actual user input or computations to gather user input
+            literal_values = [int(line_text.text()) for line_text in self._LINE_EDITS_]  # Values for ['a', 'b', 'c', 'd']
 
             kwargs = {literal: val for literal, val in zip(literals_in_expression, literal_values)}
 
@@ -313,5 +306,4 @@ class GUIHandler(QWidget):
 
     def _on_clear_input_click_(self):
         self._clear_literal_inputs_()
-        self._create_literal_inputs_()
         self._RESULT_LINE_EDIT_.clear()
