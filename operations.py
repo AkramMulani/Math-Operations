@@ -49,14 +49,15 @@ class Operations:
     def getOperations(self) -> dict:
         return self._operations_
 
-    def evaluate_expression(self,a:int,b:int,op:str) -> list:
-        expression = str(self._operations_[op])
-        expression.replace('a',str(a))
-        expression.replace('b',str(b))
+    def evaluate_expression(self, op, **kwargs) -> list:
+        expression = self._operations_[op]
+        for key, value in kwargs.items():
+            expression = expression.replace(key, str(value))
+
         try:
-            result = str(eval(expression))
+            result = eval(expression)
             if result:
-                return [1,result]
+                return [1, str(result)]
         except Exception as e:
-            return [0,e]
-        return [0,result]
+            return [0, str(e)]
+        return [0, str(result)]
