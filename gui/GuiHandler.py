@@ -1,3 +1,4 @@
+import datetime
 
 from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QLineEdit, QComboBox, QFormLayout, QHBoxLayout, QVBoxLayout, \
     QMessageBox
@@ -154,7 +155,7 @@ class GUIHandler(QWidget):
 
         if selected_operation in operation_dict:
             operation_expression = operation_dict[selected_operation]
-            self._SELECTED_EXPRESSION_LABEL_.setText(f'Expression: {operation_expression}')
+            self._SELECTED_EXPRESSION_LABEL_.setText(f'Expression: {operation_expression["define"]}, Date: {operation_expression["time"]}')
             literals = []
 
             # Extract literals while preserving their order
@@ -267,9 +268,9 @@ class GUIHandler(QWidget):
 
         for i in range(self._SELECT_COMBO_BOX_.count()):
             combo_box_item_text = self._SELECT_COMBO_BOX_.itemText(i)
-            if combo_box_item_text in operation_dict:
+            if combo_box_item_text in operation_dict.keys():
                 expression = operation_dict[combo_box_item_text]
-                tooltip_text = f"Expression: {expression}"
+                tooltip_text = f"Expression: {expression['define']}, Date: {expression['time']}"
                 self._SELECT_COMBO_BOX_.setItemData(i, tooltip_text, Qt.ToolTipRole)
 
     def _on_add_operation_click_(self):
@@ -287,7 +288,7 @@ class GUIHandler(QWidget):
         operation_dict = self._OP_.getOperations()
 
         if selected_operation in operation_dict:
-            expression = operation_dict[selected_operation]
+            expression = operation_dict[selected_operation]['define']
             literals_in_expression = []
 
             # Extract literals
