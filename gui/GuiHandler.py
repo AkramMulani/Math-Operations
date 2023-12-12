@@ -67,9 +67,9 @@ class GUIHandler(QWidget):
     def _initGui_(self):
         self.setWindowTitle('Math Operations')
         self.setWindowIcon(self.ICON)
-        self.setGeometry(100, 100, 1200, 800)
-        self.setMinimumSize(1200, 800)
-        self.setMaximumSize(1200, 800)
+        self.setGeometry(200, 100, 1000, 600)
+        self.setMinimumSize(1000, 600)
+        self.setMaximumSize(1000, 600)
         self.setStyleSheet("""
                     QWidget {
                         background-color: #f0f0f0;
@@ -159,7 +159,7 @@ class GUIHandler(QWidget):
             literals = []
 
             # Extract literals while preserving their order
-            for char in operation_expression:
+            for char in operation_expression['define']:
                 if char.isalpha() and char not in literals:
                     literals.append(char)
 

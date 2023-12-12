@@ -1,10 +1,11 @@
 from datetime import datetime
-
+import os
 
 class Operations:
     def __init__(self):
         self._operations_ = dict()
-        with open('operations.txt','r') as f:
+        self.file_path = os.path.join(os.path.dirname(__file__), 'operations.txt')
+        with open(self.file_path,'r') as f:
             operations = f.read()
             for i,operation in enumerate(operations.split(',')):
                 try:
@@ -17,7 +18,7 @@ class Operations:
             f.close()
 
     def _getTimeFromFile_(self,row:int):
-        with open('operations.txt','r') as file:
+        with open(self.file_path,'r') as file:
             lines = file.readlines()[row]
         time = lines.split('/')[1].replace(',','').strip()
         return time
@@ -30,7 +31,7 @@ class Operations:
         except KeyError:
             self._operations_[name.strip()] = {'define':sample,'time':datetime.now().strftime('%Y-%m-%d %H:%M')}
             # print(f'{name} added to dictionary')
-            with open('operations.txt','a') as f:
+            with open(self.file_path,'a') as f:
                 operation = f'\n{name}:{sample}/{datetime.now().strftime("%Y-%m-%d %H:%M")},'
                 f.write(operation)
                 f.close()
@@ -42,12 +43,12 @@ class Operations:
         try:
             del self._operations_[name.strip()]
             # print(f'{name} deleted from dictionary')
-            with open('operations.txt','r') as file:
+            with open(self.file_path,'r') as file:
                 lines = file.readlines()
                 file.close()
             if 0<=index<len(lines):
                 del lines[index]
-                with open('operations.txt','w') as file:
+                with open(self.file_path,'w') as file:
                     file.writelines(lines)
                 file.close()
                 # print('File content removed')
