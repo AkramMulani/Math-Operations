@@ -165,7 +165,7 @@ class GUIHandler(QWidget):
             self._clear_literal_inputs_()  # Clear previous inputs
 
             for i, literal in enumerate(literals):
-                label = QLabel(f'Number {i + 1}:')
+                label = QLabel(f'Label {literal}:')
                 line_edit = QLineEdit()
                 line_edit.setValidator(self._INT_VALIDATOR_)
                 line_edit.setFixedWidth(500)
@@ -306,7 +306,7 @@ class GUIHandler(QWidget):
                     QMessageBox.warning(self,'Warning','Please fill the all literal values!')
                     return
 
-            kwargs = {literal: int(val) for literal, val in zip(literals_in_expression, literal_values)}
+            kwargs = {literal: val for literal, val in zip(literals_in_expression, literal_values)}
 
             result = self._OP_.evaluate_expression(selected_operation, **kwargs)
 
