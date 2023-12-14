@@ -2,7 +2,18 @@
 
 ## Description
 
-This application is made for experimental purpose only. Math Operations application can perform simple math operations. For example addition,subtraction,multiplication,division and more.
+This application is made for experimental purpose only. Math Operations application can perform simple math operations. For example,
+
+- Addition
+- Subtraction
+- Multiplication
+- Division
+
+Also, you can store custom formulae used in Geometry, e.g.
+
+- Area of a shape, like circle (3.14 * r * r)
+- Volume of a shape, like cube (l * b * h)
+- Perimeter of a shape, like square (4 * side)
 
 ## Table of Contents
 
@@ -25,6 +36,7 @@ It can perform all complex mathematical operations. You can also define your own
 [click here](https://github.com/AkramMulani/Math-Operations) for download.
 
 ## Snapshots
+
 ![Addition Operation](https://drive.google.com/file/d/1Nl-Ta5AqVM52inbLF7-FJR03npwHlsYf/view?usp=sharing)
 * Showing Addition operation of two simple operands.
 
