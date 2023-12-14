@@ -8,8 +8,8 @@ class Operations:
             operations = f.read()
             for i,operation in enumerate(operations.split(',')):
                 try:
-                    name = operation.split('/')[0].split(':')[0].strip()
-                    define = operation.split('/')[0].split(':')[1]
+                    name = operation.split('//')[0].split(':')[0].strip()
+                    define = operation.split('//')[0].split(':')[1]
                     time = self._getTimeFromFile_(i)
                     self._operations_[name] = {'define':define,'time':time}
                 except Exception as e:
