@@ -52,8 +52,8 @@ class GUIHandler(QWidget):
         self._SELECT_COMBO_BOX_ = QComboBox()
 
         # custom dialogs for adding operation and removing operations
-        self._ADD_OPERATION_DIALOG_ = CustomDialog(self, 1, self._OP_)
-        self._DELETE_OPERATION_DIALOG_ = CustomDialog(self, 2, self._OP_)
+        self._ADD_OPERATION_DIALOG_ = CustomDialog(self, self._OP_)
+        self._DELETE_OPERATION_DIALOG_ = CustomDialog(self, self._OP_)
 
         # layouts
         self._FORM_LAYOUT_ = QFormLayout()
@@ -273,12 +273,14 @@ class GUIHandler(QWidget):
                 self._SELECT_COMBO_BOX_.setItemData(i, tooltip_text, Qt.ToolTipRole)
 
     def _on_add_operation_click_(self):
-        self._ADD_OPERATION_DIALOG_.__function_call__()
+        self._ADD_OPERATION_DIALOG_.set_add_frame()
+        self._ADD_OPERATION_DIALOG_.__add_operation__()
         self._ADD_OPERATION_DIALOG_.exec_()
         self._update_combo_box_()
 
     def _on_delete_operation_click_(self):
-        self._DELETE_OPERATION_DIALOG_.__function_call__()
+        self._DELETE_OPERATION_DIALOG_.set_delete_frame()
+        self._DELETE_OPERATION_DIALOG_.__delete_operation__()
         self._DELETE_OPERATION_DIALOG_.exec_()
         self._update_combo_box_()
 

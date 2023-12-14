@@ -1,4 +1,3 @@
-import datetime
 
 from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QLineEdit, QComboBox, QFormLayout, QHBoxLayout, QVBoxLayout, \
     QMessageBox
@@ -159,7 +158,7 @@ class GUIHandler(QWidget):
             literals = []
 
             # Extract literals while preserving their order
-            for char in operation_expression:
+            for char in operation_expression['define']:
                 if char.isalpha() and char not in literals:
                     literals.append(char)
 

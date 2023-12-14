@@ -8,8 +8,8 @@ class Operations:
             operations = f.read()
             for i,operation in enumerate(operations.split(',')):
                 try:
-                    name = operation.split('/')[0].split(':')[0].strip()
-                    define = operation.split('/')[0].split(':')[1]
+                    name = operation.split('//')[0].split(':')[0].strip()
+                    define = operation.split('//')[0].split(':')[1]
                     time = self._getTimeFromFile_(i)
                     self._operations_[name] = {'define':define,'time':time}
                 except Exception as e:
@@ -19,7 +19,7 @@ class Operations:
     def _getTimeFromFile_(self,row:int):
         with open('operations.txt','r') as file:
             lines = file.readlines()[row]
-        time = lines.split('/')[1].replace(',','').strip()
+        time = lines.split('//')[1].replace(',','').strip()
         return time
 
     def addOperation(self,name: str, sample: str):
@@ -31,7 +31,7 @@ class Operations:
             self._operations_[name.strip()] = {'define':sample,'time':datetime.now().strftime('%Y-%m-%d %H:%M')}
             # print(f'{name} added to dictionary')
             with open('operations.txt','a') as f:
-                operation = f'\n{name}:{sample}/{datetime.now().strftime("%Y-%m-%d %H:%M")},'
+                operation = f'\n{name}:{sample}//{datetime.now().strftime("%Y-%m-%d %H:%M")},'
                 f.write(operation)
                 f.close()
                 # print('File content added')
