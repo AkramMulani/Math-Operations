@@ -1,3 +1,5 @@
-Addition:a+b/0-0-0 00:00:00,
-Subtraction:a-b/0-0-0 00:00:00,
-Multiplication:a*b/2023-12-12 10:38,
+Addition:a+b//0-0-0 00:00:00,
+Subtraction:a-b//0-0-0 00:00:00,
+Multiplication:a*b//2023-12-12 10:38,
+Division:a/b//2023-12-14 15:52,
+Exp3:a+b*c//2023-12-14 15:52,
