@@ -1,17 +1,26 @@
+from datetime import datetime
+
 
 class Operations:
     def __init__(self):
         self._operations_ = dict()
         with open('operations.txt','r') as f:
             operations = f.read()
-            for operation in operations.split(','):
+            for i,operation in enumerate(operations.split(',')):
                 try:
-                    name = operation.split(':')[0].strip()
-                    define = operation.split(':')[1].replace(',','')
-                    self._operations_[name] = define
+                    name = operation.split('/')[0].split(':')[0].strip()
+                    define = operation.split('/')[0].split(':')[1]
+                    time = self._getTimeFromFile_(i)
+                    self._operations_[name] = {'define':define,'time':time}
                 except Exception as e:
                     pass
             f.close()
+
+    def _getTimeFromFile_(self,row:int):
+        with open('operations.txt','r') as file:
+            lines = file.readlines()[row]
+        time = lines.split('/')[1].replace(',','').strip()
+        return time
 
     def addOperation(self,name: str, sample: str):
         try:
@@ -19,10 +28,10 @@ class Operations:
             # if a:
                 # print(f'{name} already present in list you can use it')
         except KeyError:
-            self._operations_[name.strip()] = sample
+            self._operations_[name.strip()] = {'define':sample,'time':datetime.now().strftime('%Y-%m-%d %H:%M')}
             # print(f'{name} added to dictionary')
             with open('operations.txt','a') as f:
-                operation = f'\n{name}:{sample},'
+                operation = f'\n{name}:{sample}/{datetime.now().strftime("%Y-%m-%d %H:%M")},'
                 f.write(operation)
                 f.close()
                 # print('File content added')
@@ -50,7 +59,7 @@ class Operations:
         return self._operations_
 
     def evaluate_expression(self, op, **kwargs) -> list:
-        expression = self._operations_[op]
+        expression = self._operations_[op]['define']
         for key, value in kwargs.items():
             expression = expression.replace(key, str(value))
 

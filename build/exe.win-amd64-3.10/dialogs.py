@@ -13,7 +13,7 @@ class CustomDialog(QDialog):
             self.setGeometry(900,200,300,150)
             self.__function_call__ = self._add_operation_
         elif option == 2:
-            self.setGeometry(900, 200, 300, 250)
+            self.setGeometry(900, 200, 500, 400)
             self.__function_call__ = self._delete_operation_
         self.setStyleSheet("""
                     QDialog {
@@ -34,6 +34,7 @@ class CustomDialog(QDialog):
                 """)
 
     def _add_operation_(self):
+        self.setWindowTitle('Add Operation')
         name = QLabel('Name:')
         name_text = QLineEdit()
         define = QLabel('Define:')
@@ -101,10 +102,11 @@ class CustomDialog(QDialog):
         self.setLayout(box_layout)
 
     def _delete_operation_(self):
+        self.setWindowTitle('Delete Operation')
         label = QLabel('Select Operation to delete')
         o_list = QListWidget()
-        for op in self._OP_.getOperations().keys():
-            o_list.addItem(op)
+        for op,d in self._OP_.getOperations().items():
+            o_list.addItem(f'{op} ({d["time"]})')
         def submit():
             index = o_list.row(o_list.currentItem())
             i = self._OP_.removeOperation(index)
