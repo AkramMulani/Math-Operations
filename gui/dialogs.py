@@ -5,8 +5,9 @@ from PyQt5.QtWidgets import QDialog, QWidget, QLabel, QLineEdit, QPushButton, QF
 from operations import Operations
 
 class CustomDialog(QDialog):
-    def __init__(self,frame:QWidget,operation:Operations):
+    def __init__(self,frame:QWidget,operation:Operations,):
         super().__init__(frame)
+        self.frame = frame
         self._OP_ = operation
         self.o_list = QListWidget()
         self.setStyleSheet("""
@@ -31,7 +32,7 @@ class CustomDialog(QDialog):
         self.setGeometry(800,500,300,200)
 
     def set_delete_frame(self):
-        self.setGeometry(800,500,600,500)
+        self.setGeometry(800,500,600,400)
 
     def __add_operation__(self):
         self.setWindowTitle('Add Operation')

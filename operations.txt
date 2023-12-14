@@ -1,4 +1,1 @@
-Addition:a+b//0-0-0 00:00:00,
-Subtraction:a-b//0-0-0 00:00:00,
-sample1:abc//2023-12-14 16:42,
-Division:a/b//2023-12-14 16:42,
+Addition:a+b//2023-12-14 17:53,
