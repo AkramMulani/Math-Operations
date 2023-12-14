@@ -167,7 +167,7 @@ class GUIHandler(QWidget):
             for i, literal in enumerate(literals):
                 label = QLabel(f'Label {literal}:')
                 line_edit = QLineEdit()
-                line_edit.setValidator(self._INT_VALIDATOR_)
+                line_edit.setValidator(self._DOUBLE_VALIDATOR_)
                 line_edit.setFixedWidth(500)
                 label.setStyleSheet("""
                     QLabel {
