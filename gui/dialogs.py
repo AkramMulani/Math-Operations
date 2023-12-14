@@ -1,6 +1,6 @@
 
 from PyQt5.QtWidgets import QDialog, QWidget, QLabel, QLineEdit, QPushButton, QFormLayout, QVBoxLayout, QHBoxLayout, \
-    QListWidget, QMessageBox
+    QListWidget, QMessageBox, QListWidgetItem
 
 from operations import Operations
 
@@ -109,10 +109,20 @@ class CustomDialog(QDialog):
     def __delete_operation__(self):
         self.setWindowTitle('Delete Operation')
         label = QLabel('Select Operation to delete')
+        label.setStyleSheet("""
+            QLabel {
+                font-size: 20px;
+                font-weight: bold;
+                font-family: Times New Roman;
+            }
+        """)
         # self.o_list = QListWidget()
         self.o_list.clear()
         for op,d in self._OP_.getOperations().items():
-            self.o_list.addItem(f'{op} ({d["time"]})')
+            item = QListWidgetItem(f'{op} ({d["time"]})')
+            item.setToolTip(f'Expression: {d["define"]}')
+            self.o_list.addItem(item)
+
         def submit():
             index = self.o_list.row(self.o_list.currentItem())
             i = self._OP_.removeOperation(index)

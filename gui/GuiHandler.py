@@ -188,6 +188,9 @@ class GUIHandler(QWidget):
                 self._LINE_EDITS_.append(line_edit)
                 self._FORM_LAYOUT_.insertRow(row_to_insert, label, line_edit)
                 row_to_insert+=1
+        else:
+            self._SELECTED_EXPRESSION_LABEL_.setText('Expression not selected')
+            self._clear_literal_inputs_()
 
     def _clear_literal_inputs_(self):
         for label in self._LITERALS_LABELS_:
@@ -279,10 +282,13 @@ class GUIHandler(QWidget):
         self._update_combo_box_()
 
     def _on_delete_operation_click_(self):
-        self._DELETE_OPERATION_DIALOG_.set_delete_frame()
-        self._DELETE_OPERATION_DIALOG_.__delete_operation__()
-        self._DELETE_OPERATION_DIALOG_.exec_()
-        self._update_combo_box_()
+        if self._OP_.getOperations():
+            self._DELETE_OPERATION_DIALOG_.set_delete_frame()
+            self._DELETE_OPERATION_DIALOG_.__delete_operation__()
+            self._DELETE_OPERATION_DIALOG_.exec_()
+            self._update_combo_box_()
+        else:
+            QMessageBox.warning(self,'Warning','Operation dictionary is empty!')
 
     def _on_evaluate_expression_click_(self):
         selected_operation = self._SELECT_COMBO_BOX_.currentText()
