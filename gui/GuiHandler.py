@@ -17,7 +17,7 @@ class GUIHandler(QWidget):
         self._OP_ = operation
 
         # application icon
-        self.ICON = QIcon('./assets/icon.png')
+        self.ICON = QIcon('./assets/icon.ico')
 
         # qt validators
         self._INT_VALIDATOR_ = QIntValidator()
