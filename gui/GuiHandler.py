@@ -264,6 +264,7 @@ class GUIHandler(QWidget):
         # adding dictionary to box:
         for name,exp in self._OP_.getOperations().items():
             self._SELECT_COMBO_BOX_.addItem(name)
+        self._set_combo_box_tooltips_()
 
     def _set_combo_box_tooltips_(self):
         operation_dict = self._OP_.getOperations()
