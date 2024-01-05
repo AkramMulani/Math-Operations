@@ -210,7 +210,6 @@ class GUIHandler(QWidget):
                 border-radius: 8px;
                 padding: 8px 16px;
                 font-size: 20px;
-                cursor: pointer;
             }
             QPushButton:hover {
                 background-color: rgb(34, 158, 77);
@@ -223,7 +222,6 @@ class GUIHandler(QWidget):
                 border-radius: 8px;
                 padding: 8px 16px;
                 font-size: 20px;
-                cursor: pointer;
             }
             QPushButton:hover {
                 background-color: rgb(180, 21, 21);
@@ -236,7 +234,6 @@ class GUIHandler(QWidget):
                 border-radius: 8px;
                 padding: 8px 16px;
                 font-size: 20px;
-                cursor: pointer;
             }
             QPushButton:hover {
                 background-color: rgb(25, 135, 150);
@@ -249,7 +246,6 @@ class GUIHandler(QWidget):
                 border-radius: 8px;
                 padding: 8px 16px;
                 font-size: 20px;
-                cursor: pointer;
             }
             QPushButton:hover {
                 background-color: rgb(65, 68, 68);

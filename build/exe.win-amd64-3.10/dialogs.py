@@ -2,6 +2,8 @@
 from PyQt5.QtWidgets import QDialog, QWidget, QLabel, QLineEdit, QPushButton, QFormLayout, QVBoxLayout, QHBoxLayout, \
     QListWidget, QMessageBox
 
+from PyQt5.QtGui import QFont
+
 from operations import Operations
 
 class CustomDialog(QDialog):
@@ -10,10 +12,10 @@ class CustomDialog(QDialog):
         self._OP_ = operation
         self._function_call = None
         if option == 1:
-            self.setGeometry(900,200,300,150)
+            self.setGeometry(800,200,300,150)
             self.__function_call__ = self._add_operation_
         elif option == 2:
-            self.setGeometry(900, 200, 500, 400)
+            self.setGeometry(800, 200, 500, 400)
             self.__function_call__ = self._delete_operation_
         self.setStyleSheet("""
                     QDialog {
@@ -107,6 +109,7 @@ class CustomDialog(QDialog):
         o_list = QListWidget()
         for op,d in self._OP_.getOperations().items():
             o_list.addItem(f'{op} ({d["time"]})')
+        o_list.setFont(QFont('Monospace',12))
         def submit():
             index = o_list.row(o_list.currentItem())
             i = self._OP_.removeOperation(index)

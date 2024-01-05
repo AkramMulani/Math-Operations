@@ -4,7 +4,8 @@ import os
 class Operations:
     def __init__(self):
         self._operations_ = dict()
-        self.file_path = os.path.join(os.path.dirname(__file__), 'operations.txt')
+        self.file_path = os.getcwd()+'\\operations.txt'
+        # print(self.file_path)
         with open(self.file_path,'r') as f:
             operations = f.read()
             for i,operation in enumerate(operations.split(',')):
